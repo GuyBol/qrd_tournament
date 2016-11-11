@@ -10,8 +10,45 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.maltaverne.tanguy.qrdtournament.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/scoreTable">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scoreRowHeader">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/playerNameHeader"
+                android:layout_weight="1"
+                android:text="@string/player_name_header"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/score_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/scoreHeader"
+                android:layout_weight="1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:text="@string/title_holder_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/titleHolderHeader"
+                android:layout_weight="1"
+                android:textAlignment="center" />
+
+        </TableRow>
+
+    </TableLayout>
+
 </RelativeLayout>
