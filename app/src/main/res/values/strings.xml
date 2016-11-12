@@ -2,5 +2,6 @@
     <string name="app_name">QRD Tournament</string>
     <string name="player_name_header">Player</string>
     <string name="score_header">Score</string>
-    <string name="title_holder_header">Title Holder</string>
+    <string name="title_holder_header">Title holder</string>
+    <string name="add_player">Add player</string>
 </resources>
