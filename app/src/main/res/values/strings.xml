@@ -4,4 +4,6 @@
     <string name="score_header">Score</string>
     <string name="title_holder_header">Title holder</string>
     <string name="add_player">Add player</string>
+    <string name="games">Games</string>
+    <string name="scores">Scores</string>
 </resources>

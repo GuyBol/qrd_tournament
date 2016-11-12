@@ -1,5 +1,6 @@
 package com.maltaverne.tanguy.qrdtournament;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -27,8 +28,19 @@ public class MainActivity extends AppCompatActivity {
 
         buildScoreList(scoreTable, tournament.getPlayers());
 
-        Button startGame = (Button) findViewById(R.id.addPlayerButton);
-        startGame.setOnClickListener(new View.OnClickListener() {
+        // Button to switch to games activity
+        Button gamesButton = (Button) findViewById(R.id.gamesButton);
+        gamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GamesActivity.class);
+				startActivity(intent);
+            }
+        });
+
+        // Button to add a player
+        Button addPlayerButton = (Button) findViewById(R.id.addPlayerButton);
+        addPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TableRow addPlayerRow = (TableRow) findViewById(R.id.addPlayerRow);
@@ -38,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     Player player = getNewPlayer();
+                    if (player.getName().isEmpty()) {
+                        return;
+                    }
                     tournament.addPlayer(player);
                     addPlayerRow.setVisibility(View.GONE);
                     buildScoreList(scoreTable, tournament.getPlayers());
@@ -82,7 +97,10 @@ public class MainActivity extends AppCompatActivity {
         EditText nameInput = (EditText) findViewById(R.id.nameInput);
         String name = nameInput.getText().toString();
         EditText scoreInput = (EditText) findViewById(R.id.scoreInput);
-        int score = Integer.parseInt(scoreInput.getText().toString());
+        int score = 0;
+        if (scoreInput.getText().length() > 0) {
+            score = Integer.parseInt(scoreInput.getText().toString());
+        }
         CheckBox titleHolderInput = (CheckBox) findViewById(R.id.titleHolderInput);
         boolean titleHolder = titleHolderInput.isChecked();
         return new Player(name, score, titleHolder);
