@@ -6,37 +6,47 @@ package com.maltaverne.tanguy.qrdtournament;
 
 public class Player {
 
-    private String name;
-    private int score;
-    private boolean titleHolder;
+    private String mName;
+    private int mInitialScore;
+    private int mScore;
+    private boolean mTitleHolder;
 
     public Player(String inputName, int inputScore, boolean inputTitleHolder) {
-        name = inputName;
-        score = inputScore;
-        titleHolder = inputTitleHolder;
+        mName = inputName;
+        mInitialScore = inputScore;
+        mScore = inputScore;
+        mTitleHolder = inputTitleHolder;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
     public void setName(String inputName) {
-        name = inputName;
+        mName = inputName;
+    }
+
+    public int getInitialScore() {
+        return mInitialScore;
+    }
+
+    public void setInitialScore(int inputScore) {
+        mInitialScore = inputScore;
     }
 
     public int getScore() {
-        return score;
+        return mScore;
     }
 
     public void setScore(int inputScore) {
-        score = inputScore;
+        mScore = inputScore;
     }
 
     public boolean getTitleHolder() {
-        return titleHolder;
+        return mTitleHolder;
     }
 
     public void setTitleHolder(boolean inputTitleHolder) {
-        titleHolder = inputTitleHolder;
+        mTitleHolder = inputTitleHolder;
     }
 }

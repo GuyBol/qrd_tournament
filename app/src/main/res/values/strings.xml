@@ -6,4 +6,6 @@
     <string name="add_player">Add player</string>
     <string name="games">Games</string>
     <string name="scores">Scores</string>
+    <string name="add_game">Add game</string>
+    <string name="delete_player">Delete player</string>
 </resources>

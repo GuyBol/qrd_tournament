@@ -23,25 +23,17 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:shrinkColumns="*">
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:id="@+id/newGameTable">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
         </TableLayout>
+
+        <Button
+            android:text="@string/add_game"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addGameButton" />
 
     </LinearLayout>
 </RelativeLayout>
