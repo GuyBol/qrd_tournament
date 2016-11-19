@@ -1,5 +1,6 @@
 package com.maltaverne.tanguy.qrdtournament;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
@@ -26,12 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private TableLayout mScoreTable;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mScoreTable = (TableLayout) findViewById(R.id.scoreTable);
 
+        load();
         buildScoreList();
 
         // Button to switch to games activity
@@ -79,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     EditText nameInput = (EditText) findViewById(R.id.nameInput);
                     nameInput.setText("");
                     buildScoreList();
+                    save();
                 }
             }
         });
@@ -101,6 +110,17 @@ public class MainActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
+
+        // Reset button (for debug purposes)
+        Button resetButton = (Button) findViewById(R.id.resetButton);
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTournament.reset();
+                buildScoreList();
+                save();
+            }
+        });
     }
 
 
@@ -120,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
             mTournament.addGame(newGame);
             // Rebuild updated score list
             buildScoreList();
+            // Save result
+            save();
         }
     }
 
@@ -167,5 +189,46 @@ public class MainActivity extends AppCompatActivity {
         CheckBox titleHolderInput = (CheckBox) findViewById(R.id.titleHolderInput);
         boolean titleHolder = titleHolderInput.isChecked();
         return new Player(name, score, titleHolder);
+    }
+
+    // Save current game locally
+    private void save() {
+        try {
+            FileOutputStream outputStream = openFileOutput("save.xml", Context.MODE_PRIVATE);
+            mTournament.save(outputStream);
+            outputStream.close();
+
+            // Dump file in logs
+            FileInputStream fis = openFileInput("save.xml");
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                Log.d("XML dump", line);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Load the saved game
+    private void load() {
+        String data = null;
+        try {
+            FileInputStream fis = openFileInput("save.xml");
+            InputStreamReader isr = new InputStreamReader(fis);
+            char[] inputBuffer = new char[fis.available()];
+            isr.read(inputBuffer);
+            data = new String(inputBuffer);
+            isr.close();
+            fis.close();
+            mTournament.load(data);
+        } catch (FileNotFoundException e) {
+            Log.d("MainActivity", "File not found, just ignoring and start with a new tournament");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -22,6 +22,8 @@ public class Game {
         mParticipants.add(player);
     }
 
+    public void setParticipants(ArrayList<Player> players) { mParticipants = players; }
+
     public void addWinner(Player player) {
         mWinners.add(player);
     }
@@ -31,5 +33,13 @@ public class Game {
             winner.setScore(winner.getScore() + 1);
             winner.setTitleHolder(true);
         }
+    }
+
+    public ArrayList<Player> getParticipants() {
+        return mParticipants;
+    }
+
+    public ArrayList<Player> getWinners() {
+        return mWinners;
     }
 }
